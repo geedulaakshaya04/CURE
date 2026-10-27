@@ -1,0 +1,8 @@
+# OS files
+Thumbs.db
+.DS_Store
+
+# Temporary backups
+*_backup.pptx
+*.tmp
+*.log

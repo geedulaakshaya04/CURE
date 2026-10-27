@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CURE v6.1 — Closed-Loop Civic Response & Systems Intelligence</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- 1. WELCOME SCREEN LOADER -->
+    <div id="welcome-screen">
+        <div class="welcome-content">
+            <div class="logo-large">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="44" stroke="#0F766E" stroke-width="7" stroke-dasharray="200 70" />
+                    <path d="M30 35 V52 C30 66 70 66 70 52 V35" stroke="#2563EB" stroke-width="6" stroke-linecap="round" />
+                    <path d="M40 38 H60 C68 38 68 52 60 52 H40 V68 M58 52 L68 68" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+                    <line x1="26" y1="78" x2="74" y2="78" stroke="#16A34A" stroke-width="4" stroke-linecap="round" />
+                    <line x1="34" y1="84" x2="66" y2="84" stroke="#D97706" stroke-width="3" stroke-linecap="round" />
+                </svg>
+            </div>
+            <h2>CURE</h2>
+            <p class="subtitle">City Unified Response & Evolution</p>
+            <p class="slogan">Your City. Your Voice. Better Governance.</p>
+            <div class="loader-wrapper">
+                <div class="loader-bar" id="welcome-loader-fill"></div>
+            </div>
+            <span class="loader-status" id="welcome-status-lbl">Loading CURE Civic System...</span>
+        </div>
+    </div>
+
+    <!-- 2. SMART NOTIFICATION TOAST CONTAINER -->
+    <div id="notification-container"></div>
+
+    <!-- 3. DEMO COMPLETION MODAL -->
+    <div id="demo-complete-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-logo">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3>CURE v6.1 Closed Loop Complete</h3>
+            <p class="modal-slogan">From individual complaint → system understanding → coordinated intervention.</p>
+            <p class="modal-slogan" style="font-size: 12px; color: var(--muted-slate); margin-top: 6px;">Citizens get simplicity. Government gets intelligence. CURE connects both.</p>
+            <div class="summary-loop-grid">
+                <div class="summary-item"><i class="fa-solid fa-check"></i> Simple Citizen Intake</div>
+                <div class="summary-item"><i class="fa-solid fa-check"></i> Automatic Authority Routing</div>
+                <div class="summary-item"><i class="fa-solid fa-check"></i> Officer Queue & Action</div>
+                <div class="summary-item"><i class="fa-solid fa-check"></i> Citizen Verification Loop</div>
+                <div class="summary-item"><i class="fa-solid fa-check"></i> Root Cause Diagnosis</div>
+                <div class="summary-item"><i class="fa-solid fa-check"></i> Coordinated Intervention</div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary w-100" id="btn-close-demo-modal">Return to Home Screen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. EMERGENCY SAFETY INTERCEPT MODAL -->
+    <div id="emergency-intercept-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-card" style="max-width: 520px; text-align: center;">
+            <div style="width: 56px; height: 56px; border-radius: 50%; background: #FEE2E2; color: var(--danger-red); display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 14px;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 style="font-size: 18px; color: var(--danger-red); margin-bottom: 8px;">Is someone in immediate danger?</h3>
+            <p style="font-size: 13px; color: var(--text-charcoal); line-height: 1.5; margin-bottom: 16px;">
+                <strong>CURE is not an emergency dispatch service.</strong> For fire, life-threatening injury, high-voltage electrocution, or structural collapse, please contact emergency services immediately:
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;">
+                <div style="background: var(--bg-soft-grey); padding: 10px; border-radius: 6px; font-weight: 700;">
+                    <span style="color: var(--muted-slate); font-size: 11px; display: block;">National Emergency</span>
+                    <span style="color: var(--primary-navy); font-size: 16px;"><i class="fa-solid fa-phone"></i> 112</span>
+                </div>
+                <div style="background: var(--bg-soft-grey); padding: 10px; border-radius: 6px; font-weight: 700;">
+                    <span style="color: var(--muted-slate); font-size: 11px; display: block;">Fire Control</span>
+                    <span style="color: var(--danger-red); font-size: 16px;"><i class="fa-solid fa-fire"></i> 101</span>
+                </div>
+                <div style="background: var(--bg-soft-grey); padding: 10px; border-radius: 6px; font-weight: 700;">
+                    <span style="color: var(--muted-slate); font-size: 11px; display: block;">Police Control</span>
+                    <span style="color: var(--accent-blue); font-size: 16px;"><i class="fa-solid fa-shield"></i> 100</span>
+                </div>
+                <div style="background: var(--bg-soft-grey); padding: 10px; border-radius: 6px; font-weight: 700;">
+                    <span style="color: var(--muted-slate); font-size: 11px; display: block;">Ambulance</span>
+                    <span style="color: var(--success-green); font-size: 16px;"><i class="fa-solid fa-truck-medical"></i> 108</span>
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-secondary w-100" id="btn-emergency-cancel">Return to Categories</button>
+                <button class="btn btn-primary w-100" id="btn-emergency-continue">Continue with Civic Report (If Safe)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. ROOT CAUSE EVIDENCE MODAL (OBSERVED / ANALYSIS / HYPOTHESIS / VALIDATION) -->
+    <div id="evidence-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-card" style="max-width: 620px; text-align: left;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid var(--border-light); padding-bottom: 10px;">
+                <h3 style="font-size: 16px; color: var(--primary-navy);"><i class="fa-solid fa-magnifying-glass-chart" style="color: var(--secondary-teal);"></i> Structural Evidence Log</h3>
+                <button class="btn btn-secondary btn-small" id="btn-close-evidence"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="diag-academic-grid">
+                <div class="diag-block observed">
+                    <strong>Observed Field Data (Ward 45, Rd 36):</strong>
+                    12 independent citizen complaints recorded at coordinates (17.4325° N, 78.4071° E) across 60 days. Precipitation telemetry recorded 42mm rainfall surge with 18cm surface water pooling lasting &gt;4 hours over storm drain D-104.
+                </div>
+                <div class="diag-block analysis">
+                    <strong>Analysis (Derived Relationship):</strong>
+                    Pothole complaints are associated with locations experiencing drainage-related waterlogging and road-condition issues. Pavement wear re-emerged within 14 days of previous surface asphalt patch.
+                </div>
+                <div class="diag-block hypothesis">
+                    <strong>Hypothesis (Underlying Mechanism):</strong>
+                    Persistent drainage-related waterlogging may contribute to weakening of the road sub-base and recurring pavement damage. Field validation required before authorizing capital works.
+                </div>
+                <div class="diag-block validation">
+                    <strong>Validation Required:</strong>
+                    Joint field inspection and silt-depth measurement for Drain D-104 by HMWS&SB alongside GHMC subgrade core testing.
+                </div>
+            </div>
+            <div style="margin-top: 16px; text-align: right;">
+                <button class="btn btn-primary btn-small" id="btn-modal-investigate"><i class="fa-solid fa-bolt"></i> Launch Deep Investigation</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div class="app-container">
+        
+        <!-- HEADER & NAVIGATION BAR -->
+        <header class="app-header">
+            <div class="header-brand">
+                <div class="logo-icon-svg">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="44" stroke="#0F766E" stroke-width="7" stroke-dasharray="200 70" />
+                        <path d="M30 35 V52 C30 66 70 66 70 52 V35" stroke="#2563EB" stroke-width="6" stroke-linecap="round" />
+                        <path d="M40 38 H60 C68 38 68 52 60 52 H40 V68 M58 52 L68 68" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+                        <line x1="26" y1="78" x2="74" y2="78" stroke="#16A34A" stroke-width="4" stroke-linecap="round" />
+                        <line x1="34" y1="84" x2="66" y2="84" stroke="#D97706" stroke-width="3" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h1>CURE <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.4px; color: var(--secondary-teal); vertical-align: middle;">v6.1</span></h1>
+                    <span>Closed-Loop Civic Response & Systems Intelligence</span>
+                </div>
+            </div>
+            
+            <!-- PORTAL NAVIGATION TABS -->
+            <nav class="portal-nav">
+                <button class="nav-tab-btn active" data-portal="view-citizen" id="nav-btn-citizen-portal"><i class="fa-solid fa-user-lock"></i> Citizen Login / Portal</button>
+                <button class="nav-tab-btn" data-portal="view-home"><i class="fa-solid fa-house"></i> Home</button>
+                <button class="nav-tab-btn" data-portal="view-officer" id="nav-btn-officer-portal"><i class="fa-solid fa-helmet-safety"></i> Officer Desk</button>
+                <button class="nav-tab-btn" data-portal="view-government" id="nav-btn-gov-portal"><i class="fa-solid fa-building-columns"></i> Gov Intelligence</button>
+                <button class="nav-tab-btn" data-portal="view-academic" id="nav-btn-academic-portal"><i class="fa-solid fa-diagram-project"></i> Systems Mapping</button>
+            </nav>
+
+            <div class="header-stats">
+                <div id="auth-session-container" style="display: flex; gap: 8px; align-items: center;"></div>
+                <span class="live-clock-badge" id="live-clock"><i class="fa-solid fa-clock"></i> Hyderabad - --:--:--</span>
+                <button class="btn btn-success btn-small" id="btn-autoplay-demo">
+                    <i class="fa-solid fa-play"></i> ▶ Run Presentation Autoplay
+                </button>
+            </div>
+        </header>
+
+        <!-- AUTOPLAY DEMO PROGRESS BAR -->
+        <div class="demo-progress-container" id="demo-progress-box" style="display: none; margin-bottom: 12px;">
+            <span class="demo-status-lbl" id="demo-status-lbl">Demo running...</span>
+            <div class="demo-bar"><div class="demo-fill" id="demo-fill"></div></div>
+        </div>
+
+        <!-- MAIN VIEWS CONTAINER -->
+        <div class="portal-views-container">
+
+            <!-- ==========================================
+                 VIEW 1: CURE HOME (CLEAN & MINIMAL)
+                 ========================================== -->
+            <div class="portal-view" id="view-home">
+                <div class="welcome-pitch-hero">
+                    <h2>Your City. Your Voice. Better Governance.</h2>
+                    <p style="font-size: 15px; color: var(--muted-slate); margin-top: 6px;">Report civic problems in 30 seconds. Track resolutions without visiting an office. Helping Hyderabad solve root causes.</p>
+                </div>
+
+                <!-- Prominent Citizen Sign In Shortcut on Home -->
+                <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+                    <button class="btn btn-primary" id="btn-home-quick-signin" style="padding: 10px 24px; font-size: 13px; border-radius: 24px; box-shadow: 0 4px 12px rgba(18, 59, 93, 0.15); display: inline-flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <i class="fa-solid fa-mobile-screen-button"></i> <strong>Citizen Sign In with Mobile OTP</strong> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="home-tasks-container">
+                    <h3 style="font-size: 16px; font-weight: 700; color: var(--primary-navy); margin-bottom: 16px; text-align: center;">What do you need help with?</h3>
+                    
+                    <div class="home-action-cards-grid">
+                        <!-- Action 1: Report Problem -->
+                        <div class="home-task-card" id="btn-home-report">
+                            <div class="task-card-icon" style="background: #E0F2FE; color: var(--accent-blue);">
+                                <i class="fa-solid fa-bullhorn"></i>
+                            </div>
+                            <h4>Report a Problem</h4>
+                            <p>Tell us what happened in simple words, voice, or a photo. We route it automatically.</p>
+                            <span class="task-card-link">Start Report <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+
+                        <!-- Action 2: Track Complaint -->
+                        <div class="home-task-card" id="btn-home-track">
+                            <div class="task-card-icon" style="background: #FEF3C7; color: var(--warning-amber);">
+                                <i class="fa-solid fa-timeline"></i>
+                            </div>
+                            <h4>Track My Complaint</h4>
+                            <p>Check live field updates, inspection schedules, delay reasons, and verify repairs.</p>
+                            <span class="task-card-link">Track Status <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+
+                        <!-- Action 3: My CURE -->
+                        <div class="home-task-card" id="btn-home-mycure">
+                            <div class="task-card-icon" style="background: #DCFCE7; color: var(--success-green);">
+                                <i class="fa-solid fa-user-check"></i>
+                            </div>
+                            <h4>My CURE Dashboard</h4>
+                            <p>View your active tickets, community impact, and recurring issues resolved in your area.</p>
+                            <span class="task-card-link">Open My CURE <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Clean Gov link at the bottom -->
+                    <div class="home-gov-portal-link">
+                        <span>Government officials & engineers → </span>
+                        <button class="link-btn" id="btn-home-open-gov"><strong>Open Government Dashboard</strong> <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                    </div>
+
+                    <!-- Compact Emergency Notice -->
+                    <div class="compact-emergency-strip">
+                        <div class="em-header">
+                            <i class="fa-solid fa-triangle-exclamation" style="color: var(--danger-red);"></i>
+                            <strong>🚨 Immediate danger?</strong>
+                        </div>
+                        <p>For fire, serious injury, electrical danger, or urgent hazards, contact emergency services immediately:</p>
+                        <div class="em-dials">
+                            <span>Fire: <strong>101</strong></span>
+                            <span>Police: <strong>100</strong></span>
+                            <span>Ambulance: <strong>108</strong></span>
+                            <span>National: <strong>112</strong></span>
+                        </div>
+                        <span class="em-note">CURE is a civic grievance platform and does not replace emergency dispatch services.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 VIEW 2: CITIZEN PORTAL (CLEAN & FRIENDLY)
+                 ========================================== -->
+            <div class="portal-view active" id="view-citizen">
+
+                <!-- CITIZEN LOGIN GATE (PASSWORDLESS MOBILE + OTP) -->
+                <div id="citizen-login-gate" class="auth-gate-wrapper">
+                    <div class="auth-gate-card">
+                        <div class="auth-brand-strip">
+                            <div class="logo-mini">
+                                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="24" cy="24" r="21" stroke="#0F766E" stroke-width="3" stroke-dasharray="4 2"/>
+                                    <path d="M12 24C12 17.3726 17.3726 12 24 12" stroke="#2563EB" stroke-width="3.5" stroke-linecap="round"/>
+                                    <circle cx="24" cy="24" r="5" fill="#123B5D"/>
+                                    <path d="M24 19V9M24 39V29M19 24H9M39 24H29" stroke="#0F766E" stroke-width="2.5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="brand-meta">
+                                <h4>CURE</h4>
+                                <span>City Unified Response & Evolution Platform</span>
+                            </div>
+                        </div>
+
+                        <span class="auth-card-badge citizen"><i class="fa-solid fa-mobile-screen-button"></i> Citizen Passwordless Sign-In</span>
+                        <h3 class="auth-hero-title">Your City. Your Voice. Better Governance.</h3>
+                        <p class="auth-hero-desc">Sign in securely using your mobile number. No password required.</p>
+
+                        <!-- Step 1: Mobile Number Entry -->
+                        <div id="citizen-auth-step-1" class="auth-form-box">
+                            <label style="font-size: 12px; font-weight: 700; color: var(--primary-navy); display: block; margin-bottom: 8px;">
+                                Mobile number
+                            </label>
+                            <div class="mobile-input-group">
+                                <span class="country-prefix">+91</span>
+                                <input type="tel" id="citizen-mobile-input" maxlength="10" placeholder="98765 43210" autocomplete="tel">
+                            </div>
+
+                            <div class="auth-demo-hint-box">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <div>
+                                    <strong>Plan OTP login implementation:</strong> A real OTP must be sent by a configured authentication service. This preview does not send SMS.
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 8px; margin-top: 12px;">
+                                <button class="btn btn-secondary btn-small" id="btn-citizen-quick-mobile" type="button" style="font-size: 11px;">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Use Demo Mobile
+                                </button>
+                                <button class="btn btn-primary" id="btn-citizen-send-otp" type="button" style="flex: 1;">
+                                    Send Verification Code <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: OTP Verification -->
+                        <div id="citizen-auth-step-2" class="auth-form-box" style="display: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <label style="font-size: 12px; font-weight: 700; color: var(--primary-navy);">
+                                    Enter 6-Digit Verification Code
+                                </label>
+                                <button class="btn-text-link" id="btn-citizen-back-mobile" type="button" style="font-size: 11px; color: var(--secondary-teal); background: none; border: none; cursor: pointer; text-decoration: underline;">
+                                    Edit Mobile
+                                </button>
+                            </div>
+                            <p style="font-size: 11px; color: var(--muted-slate); margin-bottom: 12px;">
+                                Simulated SMS sent to <strong id="disp-citizen-mobile-target">+91 98765 43210</strong>
+                            </p>
+
+                            <input type="text" id="citizen-otp-input" class="otp-input-large" maxlength="6" placeholder="------" autocomplete="one-time-code">
+
+                            <div class="auth-demo-hint-box" style="background: #ECFDF5; border-color: #10B981; color: #065F46;">
+                                <i class="fa-solid fa-key"></i>
+                                <div>
+                                    <strong>Demo Verification Code:</strong> Enter <span style="font-family: var(--font-mono); font-weight: 800; font-size: 13px; letter-spacing: 1px;">246810</span> (Simulated SMS).
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 8px; margin-top: 12px;">
+                                <button class="btn btn-secondary btn-small" id="btn-citizen-quick-otp" type="button" style="font-size: 11px;">
+                                    <i class="fa-solid fa-key"></i> Fill 246810
+                                </button>
+                                <button class="btn btn-success" id="btn-citizen-verify-otp" type="button" style="flex: 1;">
+                                    Verify & Access Citizen Portal <i class="fa-solid fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="auth-pill-tags">
+                            <span>Passwordless access</span>
+                            <span>•</span>
+                            <span>Secure verification</span>
+                            <span>•</span>
+                            <span>Citizen-friendly design</span>
+                        </div>
+
+                        <!-- Complete Flow Diagram -->
+                        <div class="auth-complete-flow-diagram">
+                            <h5>The Complete Login Flow</h5>
+                            <div class="auth-flow-steps-grid">
+                                <div class="auth-step-node">
+                                    <span class="step-num">1. Welcome to CURE</span>
+                                    <span class="step-lbl">Enter Mobile</span>
+                                    <span class="step-sub">Valid 10-digit number</span>
+                                </div>
+                                <div class="auth-step-node">
+                                    <span class="step-num">2. Verify with OTP</span>
+                                    <span class="step-lbl">Receive SMS</span>
+                                    <span class="step-sub">Demo code 246810</span>
+                                </div>
+                                <div class="auth-step-node">
+                                    <span class="step-num">3. Citizen Dashboard</span>
+                                    <span class="step-lbl">Instant Access</span>
+                                    <span class="step-sub">Report • Track • My CURE</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="auth-disclaimer-card">
+                            This is a visual concept, not a functioning SMS authentication system. In production, a secure SMS gateway and backend token verification service authenticate the citizen.
+                        </div>
+
+                        <div style="margin-top: 14px; text-align: center; border-top: 1px dashed var(--border-light); padding-top: 12px;">
+                            <button class="btn btn-secondary btn-small" id="btn-login-skip-to-home" type="button" style="font-size: 11px; padding: 6px 14px;">
+                                <i class="fa-solid fa-house"></i> Or Explore City Home as Guest
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AUTHENTICATED CITIZEN WORKSPACE WRAPPER -->
+                <div id="citizen-authenticated-wrapper" style="display: none;">
+                    <!-- Citizen Sub-nav -->
+                    <div class="citizen-subnav">
+                    <button class="subnav-btn active" id="subtab-btn-report"><i class="fa-solid fa-pen-to-square"></i> Report Problem</button>
+                    <button class="subnav-btn" id="subtab-btn-tracking"><i class="fa-solid fa-timeline"></i> Track Complaint</button>
+                    <button class="subnav-btn" id="subtab-btn-dashboard"><i class="fa-solid fa-user-check"></i> My CURE</button>
+                    <button class="subnav-btn" id="subtab-btn-chat"><i class="fa-solid fa-comments"></i> Assistant</button>
+                    <button class="subnav-btn" id="subtab-btn-map"><i class="fa-solid fa-map-location-dot"></i> City Transparency</button>
+                </div>
+
+                <div class="citizen-portal-content">
+                    
+                    <!-- SUBTAB 1: 4-STEP SIMPLE CITIZEN REPORTING -->
+                    <div class="citizen-subtab-view active" id="subtab-report">
+                        
+                        <!-- Core UX Principle Highlight Banner -->
+                        <div class="cure-principle-banner">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span><strong>You don't need to know which department handles the problem.</strong> CURE will route it to the appropriate authority.</span>
+                        </div>
+
+                        <div class="wizard-container card" id="citizen-wizard-card">
+                            <div class="wizard-progress-bar">
+                                <div class="w-step active" data-wizard-step="1"><span>1</span><label>What happened?</label></div>
+                                <div class="w-step" data-wizard-step="2"><span>2</span><label>Describe it</label></div>
+                                <div class="w-step" data-wizard-step="3"><span>3</span><label>Where is it?</label></div>
+                                <div class="w-step" data-wizard-step="4"><span>4</span><label>Review</label></div>
+                            </div>
+
+                            <!-- Wizard Step 1: What Happened? (Natural Citizen Problem Wording) -->
+                            <div class="wizard-step-content active" id="w-step-1">
+                                <h3>What problem are you facing?</h3>
+                                <p style="font-size: 13px; color: var(--muted-slate); margin-bottom: 16px;">Choose a category below to get started:</p>
+                                
+                                <div class="friendly-cards-grid">
+                                    <div class="friendly-category-card" data-cat="Roads & Footpaths">
+                                        <div class="card-icon">🛣️</div>
+                                        <span>Roads & Footpaths</span>
+                                    </div>
+                                    <div class="friendly-category-card" data-cat="Drainage & Waterlogging">
+                                        <div class="card-icon">🌧️</div>
+                                        <span>Drainage & Waterlogging</span>
+                                    </div>
+                                    <div class="friendly-category-card" data-cat="Garbage & Cleanliness">
+                                        <div class="card-icon">🗑️</div>
+                                        <span>Garbage & Cleanliness</span>
+                                    </div>
+                                    <div class="friendly-category-card" data-cat="Streetlights & Electrical Issues">
+                                        <div class="card-icon">💡</div>
+                                        <span>Streetlights & Electrical Issues</span>
+                                    </div>
+                                    <div class="friendly-category-card" data-cat="Water Problems">
+                                        <div class="card-icon">💧</div>
+                                        <span>Water Problems</span>
+                                    </div>
+                                    <div class="friendly-category-card" data-cat="Traffic & Road Safety">
+                                        <div class="card-icon">🚦</div>
+                                        <span>Traffic & Road Safety</span>
+                                    </div>
+                                    <div class="friendly-category-card" data-cat="Parks & Public Places">
+                                        <div class="card-icon">🌳</div>
+                                        <span>Parks & Public Places</span>
+                                    </div>
+                                    <div class="friendly-category-card" data-cat="Construction & Obstructions">
+                                        <div class="card-icon">🏗️</div>
+                                        <span>Construction & Obstructions</span>
+                                    </div>
+                                    <div class="friendly-category-card" data-cat="Sanitation & Public Health">
+                                        <div class="card-icon">🏥</div>
+                                        <span>Sanitation & Public Health</span>
+                                    </div>
+                                    <div class="friendly-category-card" data-cat="Animal-Related Issues">
+                                        <div class="card-icon">🐕</div>
+                                        <span>Animal-Related Issues</span>
+                                    </div>
+                                    <div class="friendly-category-card" data-cat="Trees & Environment">
+                                        <div class="card-icon">🌿</div>
+                                        <span>Trees & Environment</span>
+                                    </div>
+                                    <div class="friendly-category-card" data-cat="Emergency / Immediate Danger">
+                                        <div class="card-icon">🚨</div>
+                                        <span>Emergency / Immediate Danger</span>
+                                    </div>
+                                </div>
+
+                                <div class="wizard-footer" style="margin-top: 20px; display: flex; justify-content: flex-end;">
+                                    <button class="btn btn-primary btn-next" disabled id="btn-wizard-step1-next">Continue <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Wizard Step 2: Describe It -->
+                            <div class="wizard-step-content" id="w-step-2">
+                                <h3>Describe the issue</h3>
+                                
+                                <!-- Dynamic Sub-problem Chips Cloud -->
+                                <div class="subproblem-chips-container" id="subproblem-chips-box">
+                                    <h4 id="subproblem-cat-title">Common issues in this category (tap to select):</h4>
+                                    <div class="chips-cloud" id="chips-cloud-target"></div>
+                                </div>
+
+                                <div class="input-methods-container">
+                                    <div class="method-selector">
+                                        <button class="method-tab active" data-method="type"><i class="fa-solid fa-keyboard"></i> Type</button>
+                                        <button class="method-tab" data-method="speak"><i class="fa-solid fa-microphone"></i> Speak</button>
+                                        <button class="method-tab" data-method="photo"><i class="fa-solid fa-camera"></i> Photo</button>
+                                    </div>
+
+                                    <!-- Type Input -->
+                                    <div class="method-pane active" id="pane-type">
+                                        <textarea id="citizen-input-text" class="form-control" placeholder="Type what happened in your own words... (e.g., Road is flooded with water overflowing from the drain every time it rains)"></textarea>
+                                    </div>
+
+                                    <!-- Speak Voice Input (English / Telugu / Hindi) -->
+                                    <div class="method-pane" id="pane-speak">
+                                        <p style="font-size: 12px; color: var(--muted-slate); margin-bottom: 8px;">Select your preferred language and speak:</p>
+                                        <div class="language-badges">
+                                            <button class="btn-lang active" data-lang="en">English</button>
+                                            <button class="btn-lang" data-lang="te">తెలుగు (Telugu)</button>
+                                            <button class="btn-lang" data-lang="hi">हिंदी (Hindi)</button>
+                                        </div>
+                                        <div class="voice-sim-box" id="voice-sim-box" style="display: none;">
+                                            <div class="recording-pulse"></div>
+                                            <span id="voice-status-msg" style="font-weight: 600; font-size: 12px; color: var(--primary-navy);">Listening... Speak now</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Photo Upload with AI extraction simulation -->
+                                    <div class="method-pane" id="pane-photo">
+                                        <div class="custom-file-upload" id="citizen-photo-upload-trigger">
+                                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                                            <span id="citizen-upload-text">Upload Incident Photo (Simulate Scan)</span>
+                                        </div>
+                                        <div class="photo-preview-box" id="citizen-photo-preview" style="display: none; text-align: center; margin-top: 14px;">
+                                            <img id="citizen-photo-img" src="" alt="Incident Preview" style="max-height: 150px; border-radius: 8px;">
+                                            <div class="scan-overlay-bar" id="scan-progress-bar" style="display:none;"></div>
+                                            <div class="scan-result-details" id="scan-result-lbl" style="font-size: 11px; color: var(--secondary-teal); margin-top: 6px; font-weight: 600;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="wizard-footer" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                                    <button class="btn btn-secondary btn-prev"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                                    <button class="btn btn-primary btn-next">Continue to Location <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Wizard Step 3: Where Is It? -->
+                            <div class="wizard-step-content" id="w-step-3">
+                                <h3>Where is the problem located?</h3>
+                                <div class="form-group">
+                                    <button class="btn btn-secondary w-100" id="btn-citizen-gps" style="justify-content: center;">
+                                        <i class="fa-solid fa-location-crosshairs" style="color: var(--accent-blue);"></i> 📍 Use my current location
+                                    </button>
+                                </div>
+                                <div class="location-divider"><span>OR SEARCH</span></div>
+                                <div class="form-group">
+                                    <input type="text" id="citizen-input-location" class="form-control" placeholder="Search street, landmark, or area (e.g., Road No. 36, Jubilee Hills)">
+                                </div>
+                                
+                                <div class="mock-map-canvas" id="citizen-location-map">
+                                    <div class="map-placeholder">
+                                        <i class="fa-solid fa-map-pin"></i>
+                                        <span>Selected Location: <strong id="lbl-selected-coords">Ward 45, Jubilee Hills, Hyderabad</strong></span>
+                                    </div>
+                                </div>
+
+                                <div class="wizard-footer" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                                    <button class="btn btn-secondary btn-prev"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                                    <button class="btn btn-primary btn-next">Review Report <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Wizard Step 4: Simple Review (Plain language, No AI jargon) -->
+                            <div class="wizard-step-content" id="w-step-4">
+                                <h3>Review your report</h3>
+                                <p style="font-size: 13px; color: var(--muted-slate); margin-bottom: 16px;">Please confirm the details below:</p>
+                                
+                                <div class="review-container-box">
+                                    <div class="review-item">
+                                        <span class="lbl">We understood your problem as:</span>
+                                        <span class="val" id="lbl-review-summary">Drainage overflow causing road damage and water stagnation</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="lbl">Category:</span>
+                                        <span class="val" id="lbl-review-category">Drainage & Waterlogging</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="lbl">Location:</span>
+                                        <span class="val" id="lbl-review-location">Road No. 36, Ward 45 (Jubilee Hills), Hyderabad</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="lbl">Responsible Agency (Auto-Identified):</span>
+                                        <span class="val" id="lbl-review-agency" style="color: var(--secondary-teal);">HMWS&SB (Water & Sewerage) + GHMC Engineering</span>
+                                    </div>
+                                </div>
+
+                                <!-- Recurring Issue Notice in Review -->
+                                <div class="recurrence-notice-box" id="review-recurrence-notice">
+                                    <i class="fa-solid fa-rotate-left"></i>
+                                    <div>
+                                        <strong>Possible recurring issue detected:</strong>
+                                        <p>Similar reports have been associated with this location. CURE will connect this report with related infrastructure and previous complaints for government root-cause review.</p>
+                                    </div>
+                                </div>
+
+                                <div class="review-routing-promise">
+                                    <i class="fa-solid fa-shield-halved" style="font-size: 20px;"></i>
+                                    <span><strong>You don't need to choose a department.</strong> CURE automatically routes this to the appropriate municipal team and coordinates multi-agency clearances.</span>
+                                </div>
+
+                                <div class="wizard-footer" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                                    <button class="btn btn-secondary btn-prev"><i class="fa-solid fa-arrow-left"></i> Edit Details</button>
+                                    <button class="btn btn-success" id="btn-citizen-submit-final"><i class="fa-solid fa-paper-plane"></i> Confirm & Submit</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 5: Complaint Registered Receipt Card -->
+                        <div class="card ticket-receipt-card" id="ticket-receipt" style="display: none;">
+                            <div class="receipt-header">
+                                <div>
+                                    <span class="receipt-badge"><i class="fa-solid fa-circle-check"></i> Registered</span>
+                                    <h3 id="receipt-ticket-id" style="margin-top: 4px; font-size: 18px;">🎫 CURE-2026-00142</h3>
+                                </div>
+                                <button class="btn btn-primary btn-small" id="btn-receipt-track"><i class="fa-solid fa-location-arrow"></i> Track Now</button>
+                            </div>
+                            <div class="receipt-body">
+                                <p style="font-size: 13px; color: var(--text-charcoal); margin-bottom: 16px;">Your complaint has been successfully registered on the CURE civic grid.</p>
+                                
+                                <div class="receipt-meta-grid">
+                                    <div><strong>Category:</strong> <span id="receipt-cat">Drainage & Waterlogging</span></div>
+                                    <div><strong>Responsible Team:</strong> <span id="receipt-agency">HMWS&SB & GHMC Ward 45</span></div>
+                                    <div><strong>Status:</strong> <span class="badge badge-warning" id="receipt-status">Inspection scheduled</span></div>
+                                    <div><strong>Location:</strong> <span id="receipt-loc">Ward 45, Jubilee Hills</span></div>
+                                </div>
+
+                                <div class="office-visit-banner">
+                                    <i class="fa-solid fa-building-circle-check"></i>
+                                    <div>
+                                        <strong>🔔 You do not need to visit the municipal office.</strong>
+                                        <p style="font-size: 11px; margin-top: 2px; color: var(--muted-slate);">CURE monitors this case end-to-end. We will keep you updated automatically through every stage until verified resolved.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- SUBTAB 2: TRACK COMPLAINT TIMELINE & VERIFICATION -->
+                    <div class="citizen-subtab-view" id="subtab-tracking">
+                        <div class="tracking-layout-grid">
+                            
+                            <!-- Tracking Pipeline -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Complaint Tracking Pipeline</h3>
+                                    <span class="badge badge-pulse-red" id="tracking-ticket-id">CURE-2026-00142</span>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="swiggy-timeline" id="tracking-timeline-pipeline">
+                                        <li class="timeline-node completed" data-stage="1">
+                                            <div class="node-icon"><i class="fa-solid fa-check"></i></div>
+                                            <div class="node-details">
+                                                <h4>Report received</h4>
+                                                <p>Complaint logged in the civic grid with exact coordinates.</p>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-node completed" data-stage="2">
+                                            <div class="node-icon"><i class="fa-solid fa-check"></i></div>
+                                            <div class="node-details">
+                                                <h4>Responsible team identified</h4>
+                                                <p>HMWS&SB (Sewerage) + GHMC Road Maintenance allocated.</p>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-node active" data-stage="3">
+                                            <div class="node-icon"><i class="fa-solid fa-circle-dot"></i></div>
+                                            <div class="node-details">
+                                                <h4>Inspection scheduled</h4>
+                                                <p id="track-stage-inspect-copy">Field officer is expected to inspect the reported location.</p>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-node" data-stage="4">
+                                            <div class="node-icon">○</div>
+                                            <div class="node-details">
+                                                <h4>Field action</h4>
+                                                <p>On-site drainage clearing and subgrade repair crews mobilized.</p>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-node" data-stage="5">
+                                            <div class="node-icon">○</div>
+                                            <div class="node-details">
+                                                <h4>Verification</h4>
+                                                <p>Field photo evidence submitted for citizen review.</p>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-node" data-stage="6">
+                                            <div class="node-icon">○</div>
+                                            <div class="node-details">
+                                                <h4>Resolved</h4>
+                                                <p>Citizen confirmed problem solved; case closed.</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                    <!-- Delay Status Explanation -->
+                                    <div class="stage-explanation-box" id="delay-status-box" style="margin-top: 16px;">
+                                        <h5 style="color: var(--warning-amber);"><i class="fa-solid fa-clock"></i> Taking longer than expected</h5>
+                                        <p>The inspection has not been completed yet. <strong>Reason:</strong> Coordinating joint inspection between HMWS&SB and GHMC Roads.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Panel: Office Eliminator & Verification Loop -->
+                            <div class="tracking-side-panel">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3>🏠 Office Visit Eliminator</h3>
+                                        <span class="badge badge-warning" id="citizen-ticket-status">INSPECTION</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <div style="font-size: 12px; margin-bottom: 12px;">
+                                            <div style="margin-bottom: 6px;"><strong>Lead Officer:</strong> <span>Assistant Engineer — Ward 45</span></div>
+                                            <div style="margin-bottom: 6px;"><strong>Department:</strong> <span>GHMC Engineering & HMWS&SB</span></div>
+                                            <div style="margin-bottom: 6px;"><strong>Next Expected Action:</strong> <span>Joint Inspection by 4:00 PM</span></div>
+                                            <div><strong>Escalation Contact:</strong> <span>Zonal Commissioner Desk</span></div>
+                                        </div>
+                                        <div class="office-visit-banner">
+                                            <i class="fa-solid fa-circle-info"></i>
+                                            <span>All field logs and inspection photos will be posted directly to your dashboard.</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 🔄 Learn From Resolution: Citizen Verification Loop -->
+                                <div class="verification-loop-box" id="verification-loop-box">
+                                    <h4>🔄 Learn From Resolution</h4>
+                                    <p style="font-size: 12px; color: var(--muted-slate); margin-bottom: 14px;">Once works are marked completed by the field team, please verify:</p>
+                                    <div style="font-weight: 700; font-size: 14px; margin-bottom: 14px; color: var(--primary-navy);">"Was the problem actually fixed?"</div>
+                                    <div class="feedback-options-row">
+                                        <button class="btn btn-success" id="btn-verify-yes"><i class="fa-solid fa-check"></i> ✓ Yes, fixed</button>
+                                        <button class="btn btn-danger" id="btn-verify-no"><i class="fa-solid fa-xmark"></i> ✕ No, still exists</button>
+                                    </div>
+                                    <div id="verify-verdict-msg" style="margin-top: 12px; font-size: 11px; font-weight: 600; display: none;"></div>
+                                    <div id="recurrence-action-box" style="display: none; margin-top: 14px; background: #FEF2F2; border: 1px solid #FECACA; border-radius: 6px; padding: 12px; text-align: left;">
+                                        <div style="font-weight: 700; color: var(--danger-red); font-size: 12px; margin-bottom: 4px;">
+                                            <i class="fa-solid fa-triangle-exclamation"></i> Possible Recurrence Detected
+                                        </div>
+                                        <p style="font-size: 11px; color: var(--text-charcoal); line-height: 1.4; margin-bottom: 10px;">
+                                            Citizen verification indicates repair failure. Location coordinates match a recurring 12-complaint cluster. Ticket elevated to root-cause investigation.
+                                        </p>
+                                        <button class="btn btn-primary btn-small w-100" id="btn-goto-rootcause">
+                                            Analyze Root Cause in Gov Intelligence →
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUBTAB 3: CITIZEN DASHBOARD (MY CURE) -->
+                    <div class="citizen-subtab-view" id="subtab-dashboard">
+                        <div class="citizen-dash-header">
+                            <h2>Hello, Akshaya 👋</h2>
+                            <p style="font-size: 13px; color: var(--muted-slate);">Here is the summary of your civic reports and collective community impact.</p>
+                        </div>
+
+                        <div class="card" style="margin-bottom: 20px;">
+                            <div class="card-header">
+                                <h3>Your Complaints</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="my-cure-stats">
+                                    <div class="my-stat-box">
+                                        <span class="num" style="color: var(--warning-amber);">2</span>
+                                        <span class="lbl">Active</span>
+                                    </div>
+                                    <div class="my-stat-box">
+                                        <span class="num" style="color: var(--success-green);">7</span>
+                                        <span class="lbl">Resolved</span>
+                                    </div>
+                                    <div class="my-stat-box">
+                                        <span class="num" style="color: var(--danger-red);">1</span>
+                                        <span class="lbl">Reopened</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card" style="margin-bottom: 20px;">
+                            <div class="card-header">
+                                <h3>Active Complaints</h3>
+                            </div>
+                            <div class="card-body">
+                                <table class="comm-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Issue</th>
+                                            <th>Location</th>
+                                            <th>Current Stage</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Pothole near Jubilee Hills Road</strong></td>
+                                            <td>Road No. 36</td>
+                                            <td><span class="badge badge-warning" id="mycure-active-stage">● Inspection scheduled</span></td>
+                                            <td><button class="btn btn-secondary btn-small" onclick="document.getElementById('subtab-btn-tracking').click();">View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Drainage blockage & waterlogging</strong></td>
+                                            <td>Near Apollo Access Rd</td>
+                                            <td><span class="badge badge-info">○ Field action pending</span></td>
+                                            <td><button class="btn btn-secondary btn-small" onclick="document.getElementById('subtab-btn-tracking').click();">View</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- My Impact Card -->
+                        <div class="card my-impact-card">
+                            <div class="impact-content">
+                                <i class="fa-solid fa-seedling"></i>
+                                <div>
+                                    <h4 style="font-size: 15px; color: var(--success-green); font-weight: 700; margin-bottom: 4px;">My Impact</h4>
+                                    <p><strong>7 problems reported • 5 resolved • 2 currently being handled</strong></p>
+                                    <p style="font-size: 12px; color: var(--muted-slate); margin-top: 4px;">
+                                        ✨ <em>Your reports helped identify a recurring drainage issue in your area, preventing repeated road diggings!</em>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUBTAB 4: SMART CHAT ASSISTANT -->
+                    <div class="citizen-subtab-view" id="subtab-chat">
+                        <div class="card card-chatbot">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-robot" style="color: var(--secondary-teal);"></i> CURE Civic Assistant</h3>
+                                <span class="badge badge-success">Online</span>
+                            </div>
+                            <div class="chatbot-body">
+                                <div class="chat-logs" id="chat-logs">
+                                    <div class="chat-msg bot">
+                                        <div class="avatar"><i class="fa-solid fa-shield"></i></div>
+                                        <div class="msg-content">
+                                            Namaste! I am your CURE Assistant. Ask me anything about your active complaints, delays, or responsible municipal teams.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="chat-suggestions-grid">
+                                    <button class="chat-preset-btn" data-query="Where is my complaint?">📍 Where is my complaint?</button>
+                                    <button class="chat-preset-btn" data-query="Why is it taking longer?">⏳ Why is it taking longer?</button>
+                                    <button class="chat-preset-btn" data-query="Who is handling my issue?">👷 Who is handling my issue?</button>
+                                    <button class="chat-preset-btn" data-query="Do I need to visit the office?">🏢 Do I need to visit the office?</button>
+                                </div>
+                                <div class="chat-input-row">
+                                    <input type="text" id="chat-input" placeholder="Ask a question about your complaint...">
+                                    <button class="btn btn-primary btn-small" id="btn-chat-send"><i class="fa-solid fa-paper-plane"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUBTAB 5: CITY TRANSPARENCY & STATUS MAP -->
+                    <div class="citizen-subtab-view" id="subtab-map">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>City Ward Problem Hotspots & Public Transparency</h3>
+                            </div>
+                            <div class="card-body">
+                                <p style="font-size: 13px; color: var(--muted-slate); margin-bottom: 14px;">Public disclosure of verified civic hotspots across GHMC zones:</p>
+                                <div class="mock-map-canvas" style="height: 220px;">
+                                    <div class="map-placeholder">
+                                        <i class="fa-solid fa-map-location-dot" style="font-size: 32px;"></i>
+                                        <span>Ward 45 (Jubilee Hills) — <strong>12 Recurring Coordinates Mapped</strong></span>
+                                        <p style="font-size: 11px; color: var(--muted-slate); margin-top: 4px;">Illustrative Prototype Data — Synchronized with GHMC Open Transparency Grid</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                </div> <!-- /#citizen-authenticated-wrapper -->
+            </div>
+
+            <!-- ==========================================
+                 VIEW 3: OFFICER WORK DESK (OPERATIONAL QUEUE)
+                 ========================================== -->
+            <div class="portal-view" id="view-officer">
+
+                <!-- OFFICER LOGIN GATE -->
+                <div id="officer-login-gate" class="auth-gate-wrapper">
+                    <div class="auth-gate-card">
+                        <div class="auth-brand-strip">
+                            <div class="logo-mini">
+                                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="24" cy="24" r="21" stroke="#0F766E" stroke-width="3" stroke-dasharray="4 2"/>
+                                    <path d="M12 24C12 17.3726 17.3726 12 24 12" stroke="#2563EB" stroke-width="3.5" stroke-linecap="round"/>
+                                    <circle cx="24" cy="24" r="5" fill="#123B5D"/>
+                                    <path d="M24 19V9M24 39V29M19 24H9M39 24H29" stroke="#0F766E" stroke-width="2.5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="brand-meta">
+                                <h4>CURE</h4>
+                                <span>City Unified Response & Evolution Platform</span>
+                            </div>
+                        </div>
+
+                        <span class="auth-card-badge official"><i class="fa-solid fa-id-badge"></i> Government Officer Sign-In</span>
+                        <h3 class="auth-hero-title">Restricted Municipal Gateway</h3>
+                        <p class="auth-hero-desc">Authorized municipal engineers, supervisors, and administrative personnel only.</p>
+
+                        <div class="auth-form-box">
+                            <div style="margin-bottom: 14px;">
+                                <label style="font-size: 12px; font-weight: 700; color: var(--primary-navy); display: block; margin-bottom: 6px;">
+                                    Employee ID / Service Code
+                                </label>
+                                <input type="text" id="officer-id-input" placeholder="GHMC-ENG-4501" style="width: 100%; padding: 10px 12px; border: 1.5px solid var(--border-light); border-radius: 6px; font-size: 14px; font-weight: 600; font-family: var(--font-mono);">
+                            </div>
+
+                            <div style="margin-bottom: 14px;">
+                                <label style="font-size: 12px; font-weight: 700; color: var(--primary-navy); display: block; margin-bottom: 6px;">
+                                    Official Security PIN
+                                </label>
+                                <input type="password" id="officer-pin-input" maxlength="8" placeholder="••••" style="width: 100%; padding: 10px 12px; border: 1.5px solid var(--border-light); border-radius: 6px; font-size: 16px; letter-spacing: 4px; font-family: var(--font-mono);">
+                            </div>
+
+                            <div class="auth-demo-hint-box">
+                                <i class="fa-solid fa-key"></i>
+                                <div>
+                                    <strong>Demo Official Credentials:</strong> Employee ID: <code style="font-weight: 700;">GHMC-ENG-4501</code> & PIN: <code style="font-weight: 700;">4501</code>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 8px; margin-top: 12px;">
+                                <button class="btn btn-secondary btn-small" id="btn-officer-demo-autofill" type="button" style="font-size: 11px;">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Demo Autofill
+                                </button>
+                                <button class="btn btn-primary" id="btn-officer-login-submit" type="button" style="flex: 1;">
+                                    Authorize & Enter Desk <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="auth-disclaimer-card">
+                            Separate, role-restricted sign-in. Front-end prototype simulation for academic review; enterprise SAML / SSO / OAuth 2.0 required for operational field deployment.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AUTHENTICATED OFFICER DESK WRAPPER -->
+                <div id="officer-authenticated-wrapper" style="display: none;">
+                    
+                    <!-- Officer Top Header -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <div>
+                        <h2 style="font-size: 20px; font-weight: 800; color: var(--primary-navy);">Ward 45 Field Officer Work Desk</h2>
+                        <p style="font-size: 12px; color: var(--muted-slate);">Operational work queue for Assistant Engineer (AE) & Field Supervisors</p>
+                    </div>
+                    <span class="badge badge-warning" style="font-size: 12px; padding: 6px 12px;"><i class="fa-solid fa-clipboard-list"></i> 4 Active Queue Items</span>
+                </div>
+
+                <div class="officer-desk-layout">
+                    <!-- Left: Officer Work Queue Table -->
+                    <div class="card officer-queue-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-list-check" style="color: var(--secondary-teal);"></i> Officer Work Queue</h3>
+                            <span style="font-size: 11px; color: var(--muted-slate);">Click any item to inspect details</span>
+                        </div>
+                        <div class="card-body" style="padding: 0;">
+                            <table class="comm-table officer-table">
+                                <thead>
+                                    <tr>
+                                        <th>Priority</th>
+                                        <th>Complaint</th>
+                                        <th>Location</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="queue-row active" data-queue-id="q-1">
+                                        <td><span class="badge badge-danger">High</span></td>
+                                        <td><strong>Drainage overflow & pothole</strong></td>
+                                        <td>Jubilee Hills Rd 36</td>
+                                        <td><span class="badge badge-warning" id="queue-status-q1">Inspection</span></td>
+                                    </tr>
+                                    <tr class="queue-row" data-queue-id="q-2">
+                                        <td><span class="badge badge-warning">Medium</span></td>
+                                        <td><strong>Road cracks & pavement wear</strong></td>
+                                        <td>Road R-36 Junction</td>
+                                        <td><span class="badge badge-info">Assigned</span></td>
+                                    </tr>
+                                    <tr class="queue-row" data-queue-id="q-3">
+                                        <td><span class="badge badge-warning">Medium</span></td>
+                                        <td><strong>Flickering light pole SL-12</strong></td>
+                                        <td>Ward 45 Sector 2</td>
+                                        <td><span class="badge badge-info">Field Action</span></td>
+                                    </tr>
+                                    <tr class="queue-row" data-queue-id="q-4">
+                                        <td><span class="badge badge-success">Low</span></td>
+                                        <td><strong>Garbage bin overflow</strong></td>
+                                        <td>Block B Market</td>
+                                        <td><span class="badge badge-success">Scheduled</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Right: Complaint Details & Operational Actions -->
+                    <div class="card officer-details-card">
+                        <div class="card-header">
+                            <h3 id="officer-detail-title"><i class="fa-solid fa-file-invoice" style="color: var(--primary-navy);"></i> Complaint Details: #CURE-2026-00142</h3>
+                            <span class="badge badge-danger" id="officer-detail-priority">High Priority</span>
+                        </div>
+                        <div class="card-body">
+                            <!-- Auditable Field Lifecycle -->
+                            <div class="officer-lifecycle-container" style="margin-bottom: 16px; background: var(--bg-soft-grey); padding: 12px; border-radius: 8px; border: 1px solid var(--border-light);">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <span style="font-size: 11px; font-weight: 700; color: var(--primary-navy); text-transform: uppercase; letter-spacing: 0.5px;">
+                                        <i class="fa-solid fa-timeline"></i> Auditable Field Lifecycle
+                                    </span>
+                                    <span style="font-size: 10px; color: var(--muted-slate);">Click stage to inspect audit log</span>
+                                </div>
+                                <div class="officer-lifecycle-track" id="officer-lifecycle-track">
+                                    <div class="lc-step completed" data-stage="1"><div class="lc-dot"><i class="fa-solid fa-check"></i></div><span>Received</span></div>
+                                    <div class="lc-step completed" data-stage="2"><div class="lc-dot"><i class="fa-solid fa-check"></i></div><span>Assigned</span></div>
+                                    <div class="lc-step completed" data-stage="3"><div class="lc-dot"><i class="fa-solid fa-check"></i></div><span>Inspection</span></div>
+                                    <div class="lc-step active" data-stage="4"><div class="lc-dot"><i class="fa-solid fa-circle-dot"></i></div><span>Action</span></div>
+                                    <div class="lc-step" data-stage="5"><div class="lc-dot">○</div><span>Verification</span></div>
+                                    <div class="lc-step" data-stage="6"><div class="lc-dot">○</div><span>Closed</span></div>
+                                </div>
+                                <div id="officer-stage-audit-details" style="margin-top: 10px; font-size: 11px; background: var(--white); padding: 10px; border-radius: 6px; border: 1px solid var(--border-light); line-height: 1.45;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <strong style="color: var(--primary-navy);">Stage: Action & Joint Mitigation</strong>
+                                        <span style="color: var(--muted-slate);">2026-08-15 11:30 AM</span>
+                                    </div>
+                                    <div><strong>Responsible Team:</strong> Field Inspection Team — Ward 45 & HMWS&SB Sub-Division 3</div>
+                                    <div><strong>Action Taken:</strong> Coordinated desilting suction deployed to Drain D-104; road sub-base dried.</div>
+                                    <div><strong>Evidence:</strong> Field Photo Log #PH-892 (Silt clearing confirmed)</div>
+                                </div>
+                            </div>
+
+                            <div class="officer-detail-sections">
+                                
+                                <div class="detail-block">
+                                    <span class="lbl">What Citizen Reported:</span>
+                                    <p class="val" id="officer-detail-report">"Road is breaking apart with water overflowing from the side drain every time it rains."</p>
+                                </div>
+
+                                <div class="detail-grid-2">
+                                    <div class="detail-block">
+                                        <span class="lbl">Location & Coordinates:</span>
+                                        <p class="val" id="officer-detail-location">Road No. 36, Jubilee Hills [17.4325° N, 78.4071° E]</p>
+                                    </div>
+                                    <div class="detail-block">
+                                        <span class="lbl">Related Infrastructure:</span>
+                                        <p class="val" id="officer-detail-infra" style="color: var(--secondary-teal);">Drain D-104 & Road R-36</p>
+                                    </div>
+                                </div>
+
+                                <div class="detail-grid-2">
+                                    <div class="detail-block">
+                                        <span class="lbl">Previous Complaints:</span>
+                                        <p class="val" id="officer-detail-history" style="color: var(--warning-amber);"><strong>12 complaints</strong> logged at this coordinate cluster in 60 days</p>
+                                    </div>
+                                    <div class="detail-block">
+                                        <span class="lbl">Responsible Agencies:</span>
+                                        <p class="val" id="officer-detail-agencies">HMWS&SB (Water Board) + GHMC Roads</p>
+                                    </div>
+                                </div>
+
+                                <div style="margin-top: 14px; border-top: 1px solid var(--border-light); padding-top: 12px;">
+                                    <span class="lbl" style="font-weight: 700; color: var(--primary-navy); display: block; margin-bottom: 8px;">Multi-Agency Clearance & Field Operations:</span>
+                                    
+                                    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;">
+                                        <span class="badge badge-warning" id="badge-dep-roads"><i class="fa-solid fa-road"></i> GHMC Roads (Inspection Ready)</span>
+                                        <span class="badge badge-warning" id="badge-dep-water"><i class="fa-solid fa-faucet-drip"></i> HMWS&SB Water (Desilting Crew Alerted)</span>
+                                        <span class="badge badge-info" id="badge-dep-police"><i class="fa-solid fa-traffic-light"></i> Traffic Police (Coordination Pending)</span>
+                                    </div>
+
+                                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                        <button class="btn btn-secondary btn-small" id="btn-request-clearance"><i class="fa-solid fa-plug"></i> Request HMWS&SB Clearance</button>
+                                        <button class="btn btn-secondary btn-small" id="btn-notify-traffic" style="display: none;"><i class="fa-solid fa-car-side"></i> Notify Traffic Police</button>
+                                        <button class="btn btn-success btn-small" id="btn-issue-workorder" style="display: none;"><i class="fa-solid fa-check-double"></i> Complete Works & Upload Proof</button>
+                                    </div>
+
+                                    <div id="officer-coordination-log" style="display: none; margin-top: 12px; background: var(--midnight-navy); color: var(--white); padding: 10px; border-radius: 6px; font-family: var(--font-mono); font-size: 11px;">
+                                        <p style="color: #34D399;">> HMWS&SB Drainage desilting clearance confirmed.</p>
+                                        <p id="log-line-2"></p>
+                                        <p id="log-line-3"></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div> <!-- /#officer-authenticated-wrapper -->
+
+            </div>
+
+            <!-- ==========================================
+                 VIEW 4: GOVERNMENT DASHBOARD (GOV INTELLIGENCE)
+                 ========================================== -->
+            <div class="portal-view" id="view-government">
+
+                <!-- GOVERNMENT / SYSTEMS INTELLIGENCE OFFICIAL GATE -->
+                <div id="gov-login-gate" class="auth-gate-wrapper">
+                    <div class="auth-gate-card">
+                        <div class="auth-brand-strip">
+                            <div class="logo-mini">
+                                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="24" cy="24" r="21" stroke="#0F766E" stroke-width="3" stroke-dasharray="4 2"/>
+                                    <path d="M12 24C12 17.3726 17.3726 12 24 12" stroke="#2563EB" stroke-width="3.5" stroke-linecap="round"/>
+                                    <circle cx="24" cy="24" r="5" fill="#123B5D"/>
+                                    <path d="M24 19V9M24 39V29M19 24H9M39 24H29" stroke="#0F766E" stroke-width="2.5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="brand-meta">
+                                <h4>CURE</h4>
+                                <span>City Intelligence & Systems Dashboard</span>
+                            </div>
+                        </div>
+
+                        <span class="auth-card-badge official"><i class="fa-solid fa-building-columns"></i> Municipal Intelligence Gateway</span>
+                        <h3 class="auth-hero-title">Official Government Clearance Required</h3>
+                        <p class="auth-hero-desc">Access to cross-agency analytics, Digital Twin telemetry, and Joint Work Order generation requires verified officer sign-in.</p>
+
+                        <div class="auth-form-box">
+                            <div style="margin-bottom: 14px;">
+                                <label style="font-size: 12px; font-weight: 700; color: var(--primary-navy); display: block; margin-bottom: 6px;">
+                                    Official Employee ID
+                                </label>
+                                <input type="text" id="gov-officer-id-input" placeholder="GHMC-ENG-4501" style="width: 100%; padding: 10px 12px; border: 1.5px solid var(--border-light); border-radius: 6px; font-size: 14px; font-weight: 600; font-family: var(--font-mono);">
+                            </div>
+
+                            <div style="margin-bottom: 14px;">
+                                <label style="font-size: 12px; font-weight: 700; color: var(--primary-navy); display: block; margin-bottom: 6px;">
+                                    PIN Code
+                                </label>
+                                <input type="password" id="gov-officer-pin-input" maxlength="8" placeholder="••••" style="width: 100%; padding: 10px 12px; border: 1.5px solid var(--border-light); border-radius: 6px; font-size: 16px; letter-spacing: 4px; font-family: var(--font-mono);">
+                            </div>
+
+                            <div class="auth-demo-hint-box">
+                                <i class="fa-solid fa-key"></i>
+                                <div>
+                                    <strong>Demo Credentials:</strong> Employee ID: <code style="font-weight: 700;">GHMC-ENG-4501</code> & PIN: <code style="font-weight: 700;">4501</code>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 8px; margin-top: 12px;">
+                                <button class="btn btn-secondary btn-small" id="btn-gov-demo-autofill" type="button" style="font-size: 11px;">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Demo Autofill
+                                </button>
+                                <button class="btn btn-primary" id="btn-gov-login-submit" type="button" style="flex: 1;">
+                                    Authorize & Open Gov Intelligence <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="auth-disclaimer-card">
+                            Protected administrative interface. Illustrative prototype demonstration for evaluation.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AUTHENTICATED GOVERNMENT WORKSPACE WRAPPER -->
+                <div id="gov-authenticated-wrapper" style="display: none;">
+                
+                <!-- Mandatory Academic Prototype Label (Prominently Displayed) -->
+                <div class="prototype-validation-banner">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span><strong>PROTOTYPE DASHBOARD:</strong> All values, telemetry scores, and projections shown are illustrative for systems engineering analysis and require local validation before operational municipal deployment.</span>
+                </div>
+
+                <!-- Breadcrumb -->
+                <div class="gov-top-breadcrumb">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <span>CURE Governance Intelligence:</span> Hyderabad ➔ Khairatabad Zone ➔ Circle 18 ➔ <strong>Ward 45 (Jubilee Hills)</strong>
+                </div>
+
+                <!-- Active Recurrence Alert Banner (Triggered by Citizen Verification Loop) -->
+                <div class="gov-recurrence-alert-strip" id="gov-recurrence-alert-strip" style="display: none;">
+                    <div>
+                        <strong style="color: var(--danger-red);"><i class="fa-solid fa-triangle-exclamation"></i> Active Recurrence Event:</strong>
+                        <span> Citizen verified repair failure at Ward 45, Rd 36. CURE correlated 12 historical complaints to Drain D-104.</span>
+                    </div>
+                    <button class="btn btn-danger btn-small" id="btn-inspect-recurrence">Inspect Root Cause Flow <i class="fa-solid fa-arrow-down"></i></button>
+                </div>
+
+                <!-- City Health Scoreboard -->
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-header">
+                        <h3>City Health Scoreboard (Progressive Disclosure)</h3>
+                        <span style="font-size: 11px; color: var(--muted-slate);"><i class="fa-solid fa-circle-info"></i> Click any metric to expand diagnostic details</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="city-health-scoreboard">
+                            <div class="health-score-card" data-metric="roads">
+                                <span class="lbl">Roads Infrastructure</span>
+                                <div class="status-indicator watch"><i class="fa-solid fa-circle"></i> WATCH</div>
+                                <span style="font-size: 11px; color: var(--muted-slate);">Pothole cluster identified</span>
+                            </div>
+                            <div class="health-score-card" data-metric="drainage">
+                                <span class="lbl">Stormwater Drainage</span>
+                                <div class="status-indicator needs-review"><i class="fa-solid fa-circle-exclamation"></i> NEEDS REVIEW</div>
+                                <span style="font-size: 11px; color: var(--muted-slate);">Drain D-104 requires inspection</span>
+                            </div>
+                            <div class="health-score-card" data-metric="waste">
+                                <span class="lbl">Solid Waste</span>
+                                <div class="status-indicator healthy"><i class="fa-solid fa-circle-check"></i> HEALTHY</div>
+                                <span style="font-size: 11px; color: var(--muted-slate);">Prototype indicator within reference range</span>
+                            </div>
+                            <div class="health-score-card" data-metric="citizen">
+                                <span class="lbl">Citizen Response</span>
+                                <div class="status-indicator watch"><i class="fa-solid fa-circle"></i> WATCH</div>
+                                <span style="font-size: 11px; color: var(--muted-slate);">Recurrence tracking active</span>
+                            </div>
+                        </div>
+
+                        <!-- Progressive Disclosure Diagnostic Overlay -->
+                        <div id="gov-diagnostic-drawer" style="display: none; margin-top: 16px; background: var(--bg-soft-grey); padding: 16px; border-radius: 8px; border: 1px solid var(--border-light);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <h4 id="diag-title" style="font-size: 14px; color: var(--primary-navy); font-weight: 700;">Drainage Diagnostics</h4>
+                                <button class="btn btn-secondary btn-small" id="btn-close-diagnostic">Close <i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div id="diag-body" style="font-size: 12px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gov Grid: Root Cause Engine & Knowledge Graph -->
+                <div class="gov-layout-grid">
+                    
+                    <!-- Left: Root Cause Engine -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-brain" style="color: var(--secondary-teal);"></i> The Root Cause Engine</h3>
+                            <div style="display: flex; gap: 6px;">
+                                <button class="btn btn-secondary btn-small" id="btn-view-evidence"><i class="fa-solid fa-magnifying-glass"></i> View Evidence</button>
+                                <button class="btn btn-primary btn-small" id="btn-investigate-cause"><i class="fa-solid fa-microscope"></i> Investigate Cause</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p style="font-size: 12px; color: var(--muted-slate); margin-bottom: 14px;">Tracing structural failure loops behind recurring citizen grievances:</p>
+                            
+                                <div class="root-cause-visual-flow">
+                                <div class="rc-node" data-rc="rain">🌧️ HEAVY RAIN</div>
+                                <div class="rc-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                                <div class="rc-node warning" data-rc="drainage">🕳️ DRAINAGE BLOCKAGE</div>
+                                <div class="rc-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                                <div class="rc-node warning" data-rc="waterlogging">🌊 WATER STAGNATION</div>
+                                <div class="rc-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                                <div class="rc-node danger" data-rc="roadbase">⚠️ ROAD BASE WEAKENING</div>
+                                <div class="rc-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                                <div class="rc-node danger" data-rc="pothole">🚧 POTHOLE FORMATION</div>
+                                <div class="rc-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                                <div class="rc-node" data-rc="report">📢 CITIZEN REPORT</div>
+                                <div class="rc-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                                <div class="rc-node warning" data-rc="patch">🩹 QUICK SURFACE REPAIR</div>
+                                <div class="rc-arrow-loop">
+                                    <i class="fa-solid fa-rotate-left"></i> PROBLEM MAY RETURN
+                                </div>
+                            </div>
+                            <div id="rc-node-drawer" class="rc-node-drawer" style="display: none;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <h4 id="rc-drawer-title" style="font-size: 13px; color: var(--primary-navy); font-weight: 800;">Drainage Blockage</h4>
+                                    <button class="btn btn-secondary btn-small" id="btn-close-rc-drawer">Close</button>
+                                </div>
+                                <div class="diag-academic-grid" id="rc-drawer-body"></div>
+                            </div>
+
+                            <div class="rc-insight-callout">
+                                <strong><i class="fa-solid fa-lightbulb"></i> CURE Systems Insight:</strong>
+                                <p>Recurring complaints appear connected to a shared infrastructure condition. Quick asphalt patching will fail under rainfall unless underlying storm drain D-104 is desilted. <em>(System hypothesis requiring local validation)</em></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Knowledge Graph -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-circle-nodes" style="color: var(--accent-blue);"></i> Interactive Knowledge Graph</h3>
+                            <span style="font-size: 11px; color: var(--muted-slate);">Click nodes to trace connections</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="graph-layout">
+                                <div class="mock-graph-canvas" id="mock-graph-canvas">
+                                    <div class="graph-node" id="gnode-weather" style="top: 15%; left: 45%;"><i class="fa-solid fa-cloud-showers-heavy"></i> Weather</div>
+                                    <div class="graph-node" id="gnode-drainage" style="top: 35%; left: 45%;"><i class="fa-solid fa-faucet-drip"></i> Drainage</div>
+                                    <div class="graph-node" id="gnode-waterlogging" style="top: 55%; left: 25%;"><i class="fa-solid fa-water"></i> Waterlogging</div>
+                                    <div class="graph-node" id="gnode-maintenance" style="top: 55%; left: 65%;"><i class="fa-solid fa-wrench"></i> Maintenance</div>
+                                    <div class="graph-node" id="gnode-road" style="top: 72%; left: 25%;"><i class="fa-solid fa-road"></i> Road</div>
+                                    <div class="graph-node" id="gnode-complaint" style="top: 72%; left: 65%;"><i class="fa-solid fa-clipboard-list"></i> Complaint</div>
+                                    <div class="graph-node active" id="gnode-pothole" style="top: 88%; left: 25%;"><i class="fa-solid fa-triangle-exclamation"></i> Pothole</div>
+                                    <div class="graph-node" id="gnode-citizen" style="top: 88%; left: 65%;"><i class="fa-solid fa-user"></i> Citizen</div>
+                                </div>
+                                <div class="graph-details-sidebar" id="graph-details-panel">
+                                    <h4 style="font-size: 12px; font-weight: 700; color: var(--primary-navy); margin-bottom: 6px;" id="gnode-detail-title">Relationship: Pothole</h4>
+                                    <div id="gnode-detail-connections" style="font-size: 11px; color: var(--secondary-teal); font-weight: 600; margin-bottom: 8px;">
+                                        Connected to: Road condition • Water stagnation • Drainage • Rainfall • Maintenance history • Citizen complaints
+                                    </div>
+                                    <div id="gnode-tree" class="kg-tree-container"></div>
+                                    <div style="font-size: 11px; font-weight: 700; color: var(--primary-navy); margin-bottom: 2px;">Why is this connection shown?</div>
+                                    <p id="gnode-desc" style="font-size: 11px; color: var(--muted-slate); line-height: 1.4;">
+                                        This relationship is shown because the prototype dataset associates pothole complaints at this location with drainage-related waterlogging records. It is a working hypothesis, not a validated statistical correlation.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Digital Twin & Multi-Agency Coordinated Intervention -->
+                <div class="gov-layout-grid" style="margin-top: 20px;">
+                    
+                    <!-- Digital Twin (Ward 45) -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-cube" style="color: var(--secondary-teal);"></i> Ward 45 Digital Twin</h3>
+                            <span style="font-size: 11px; color: var(--muted-slate);">Select asset layer to inspect</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="digital-twin-box">
+                                <div class="twin-layer active" data-twin="drain-104" style="top: 30%; left: 30%;"><i class="fa-solid fa-water"></i> Drain D-104</div>
+                                <div class="twin-layer" data-twin="road-36" style="top: 60%; left: 60%;"><i class="fa-solid fa-road"></i> Road R-36</div>
+                                <div class="twin-layer" data-twin="light-12" style="top: 20%; left: 75%;"><i class="fa-solid fa-lightbulb"></i> Streetlight SL-12</div>
+                            </div>
+
+                            <div class="twin-details-panel" id="twin-details-box">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h4 style="font-size: 14px; font-weight: 700; color: var(--primary-navy);" id="twin-title">Drain ID: D-104</h4>
+                                    <span class="badge badge-warning" id="twin-status">Watch</span>
+                                </div>
+                                <div class="twin-stats-grid">
+                                    <div><strong>Infrastructure Type:</strong> <span id="twin-type">Storm-water drain</span></div>
+                                    <div><strong>Related Complaints:</strong> <span id="twin-complaints">12</span></div>
+                                    <div><strong>Last Inspection:</strong> <span id="twin-inspection">42 days ago</span></div>
+                                    <div><strong>Related Road:</strong> <span id="twin-road">R-36</span></div>
+                                    <div><strong>Observed Issue:</strong> <span style="color: var(--danger-red);">Water stagnation</span></div>
+                                    <div><strong>Possible Relationship:</strong> <span>Road damage</span></div>
+                                </div>
+                                <div class="twin-asset-history" id="twin-asset-history">
+                                    <div class="twin-h-step completed"><span>Inspection</span></div>
+                                    <div class="twin-h-arrow">↓</div>
+                                    <div class="twin-h-step completed"><span>Maintenance</span></div>
+                                    <div class="twin-h-arrow">↓</div>
+                                    <div class="twin-h-step active"><span>Complaint</span></div>
+                                    <div class="twin-h-arrow">↓</div>
+                                    <div class="twin-h-step"><span>Action</span></div>
+                                    <div class="twin-h-arrow">↓</div>
+                                    <div class="twin-h-step"><span>Verification</span></div>
+                                </div>
+                                <p class="twin-proto-note">Prototype records — requires local validation</p>
+                                <div class="twin-actions-row" style="margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap;">
+                                    <button class="btn btn-secondary btn-small" id="btn-twin-inspect"><i class="fa-solid fa-calendar-check"></i> Schedule Inspection</button>
+                                    <button class="btn btn-primary btn-small" id="btn-twin-workorder"><i class="fa-solid fa-bolt"></i> Create Coordinated Order</button>
+                                    <button class="btn btn-secondary btn-small" id="btn-twin-view-complaints"><i class="fa-solid fa-list"></i> View Related Complaints</button>
+                                </div>
+                            </div>
+                            <div style="font-size: 9px; color: var(--muted-slate); margin-top: 8px; font-style: italic;">Prototype records — requires local validation</div>
+                        </div>
+                    </div>
+
+                    <!-- Multi-Agency Coordinated Intervention -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-handshake" style="color: var(--success-green);"></i> Coordinated Intervention</h3>
+                            <span class="badge badge-success">Multi-Agency Workflow</span>
+                        </div>
+                        <div class="card-body">
+                            <div style="background: #F0FDFA; border: 1px solid #CCFBF1; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
+                                <strong style="font-size: 12px; color: var(--secondary-teal);">Why coordination is required:</strong>
+                                <p style="font-size: 11px; color: var(--text-charcoal); margin-top: 2px;">
+                                    The reported issue involves drainage, road infrastructure, and traffic management. Independent repairs cause repeated asphalt digging within 30 days.
+                                </p>
+                            </div>
+                            
+                            <div class="jwo-workflow-box">
+                                <h4 style="font-size: 13px; color: var(--primary-navy); font-weight: 700;">Proposed Coordinated Actions:</h4>
+                                <ol style="margin-left: 18px; margin-top: 8px; font-size: 12px; line-height: 1.6; color: var(--text-charcoal);">
+                                    <li><strong>Drain inspection:</strong> HMWS&SB verifies silt blockage in Drain D-104.</li>
+                                    <li><strong>Drainage clearance:</strong> Suction teams desilt drainage line to restore monsoon capacity.</li>
+                                    <li><strong>Road repair:</strong> GHMC paves asphalt with polymer seal over dried subgrade.</li>
+                                    <li><strong>Temporary traffic management:</strong> Traffic Police enforces temporary single-lane diversion during active works.</li>
+                                </ol>
+                            </div>
+
+                            <button class="btn btn-success w-100" id="btn-dispatch-jwo" style="margin-top: 14px; justify-content: center;">
+                                <i class="fa-solid fa-bolt"></i> Authorize Coordinated Intervention
+                            </button>
+                            <div id="jwo-generated-card" class="jwo-generated-card" style="display: none;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                    <h4 id="jwo-id-label">CURE-JWO-2026-009</h4>
+                                    <span class="badge badge-info" id="jwo-status-badge">Draft</span>
+                                </div>
+                                <div class="jwo-status-track" id="jwo-status-track">
+                                    <span class="jwo-st active" data-jwo="draft">Draft</span>
+                                    <span class="jwo-st" data-jwo="authorized">Authorized</span>
+                                    <span class="jwo-st" data-jwo="dispatched">Dispatched</span>
+                                </div>
+                                <h5>Coordinated assignments</h5>
+                                <ul class="jwo-assign-list">
+                                    <li><strong>Drainage / Water agency</strong> → Inspect and clear drain</li>
+                                    <li><strong>Roads</strong> → Inspect and repair affected pavement</li>
+                                    <li><strong>Traffic</strong> → Temporary traffic management if required</li>
+                                    <li><strong>Citizen</strong> → Receive progress updates</li>
+                                </ul>
+                                <p class="twin-proto-note">Prototype workflow simulation — no municipal department was contacted.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Policy Simulator -->
+                <div class="card" style="margin-top: 20px;">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-sliders" style="color: var(--warning-amber);"></i> Policy Simulator Sandbox</h3>
+                    </div>
+                    <div class="card-body">
+                        <label style="font-size: 12px; font-weight: 600; color: var(--primary-navy);">
+                            Drainage Preventive Inspection Interval: <strong id="val-sim-interval" style="color: var(--secondary-teal);">90</strong> Days
+                        </label>
+                        <input type="range" class="range-slider" id="slider-sim-interval" min="15" max="120" step="15" value="90">
+
+                        <div class="simulator-outcomes-grid">
+                            <div class="outcome-box">
+                                <span class="num" style="color: var(--success-green);" id="out-sim-complaints">-0%</span>
+                                <span class="lbl">Predicted Complaints</span>
+                            </div>
+                            <div class="outcome-box">
+                                <span class="num" style="color: var(--danger-red);" id="out-sim-cost">+0%</span>
+                                <span class="lbl">Maintenance Budget</span>
+                            </div>
+                            <div class="outcome-box">
+                                <span class="num" style="color: var(--success-green);" id="out-sim-flood">-0%</span>
+                                <span class="lbl">Sewer Flood Risk</span>
+                            </div>
+                            <div class="outcome-box">
+                                <span class="num" style="color: var(--accent-blue);" id="out-sim-trust">+0%</span>
+                                <span class="lbl">Citizen Trust Level</span>
+                            </div>
+                        </div>
+                        <div style="font-size: 9px; color: var(--muted-slate); margin-top: 10px; text-align: center; font-style: italic;">
+                            * Decision Support System — Simulated values for policy optimization analysis. Requires local validation.
+                        </div>
+                    </div>
+                </div>
+                </div> <!-- /#gov-authenticated-wrapper -->
+
+            </div>
+
+            <!-- ==========================================
+                 VIEW 5: SYSTEMS MAPPING (ACADEMIC ARCHIVE)
+                 ========================================== -->
+            <div class="portal-view" id="view-academic">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>CURE End-to-End Closed Loop Architecture</h3>
+                        <span class="badge badge-info">Systems Thinking Foundation</span>
+                    </div>
+                    <div class="card-body">
+                        <p style="font-size: 13px; color: var(--muted-slate); margin-bottom: 16px;">
+                            The complete CURE closed-loop governance engine connecting individual citizen reporting with systemic root-cause interventions:
+                        </p>
+
+                        <!-- Visual Master Architecture Flow Diagram -->
+                        <div class="academic-master-flow">
+                            <div class="arch-box node-citizen"><i class="fa-solid fa-user"></i> CITIZEN</div>
+                            <div class="arch-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                            <div class="arch-box node-intake">SIMPLE REPORTING (Text / Voice / Photo / Location)</div>
+                            <div class="arch-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                            <div class="arch-box node-routing">CURE CASE UNDERSTANDING & ROUTING</div>
+                            <div class="arch-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                            <div class="arch-box node-officer">OFFICER WORKFLOW & FIELD INTERVENTION</div>
+                            <div class="arch-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                            <div class="arch-box node-verify">CITIZEN VERIFICATION ("Was it actually fixed?")</div>
+                            
+                            <div class="arch-split-row">
+                                <div class="arch-split-branch branch-left">
+                                    <div class="arch-badge green">✓ YES, FIXED</div>
+                                    <div class="arch-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                                    <div class="arch-box">CLOSE CASE</div>
+                                </div>
+                                <div class="arch-split-branch branch-right">
+                                    <div class="arch-badge red">✕ NO, STILL EXISTS</div>
+                                    <div class="arch-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                                    <div class="arch-box warning">REOPEN & RECURRENCE ANALYSIS</div>
+                                    <div class="arch-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                                    <div class="arch-box warning">SYSTEM PATTERNS & ROOT CAUSES</div>
+                                    <div class="arch-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                                    <div class="arch-box success">COORDINATED ACTION & BETTER GOVERNANCE</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--bg-soft-grey); padding: 14px; border-radius: 8px; margin-top: 20px;">
+                            <h4 style="font-size: 13px; color: var(--primary-navy); font-weight: 700; margin-bottom: 4px;">Donella Meadows Leverage Points</h4>
+                            <p style="font-size: 12px; color: var(--muted-slate); line-height: 1.5;">
+                                Traditional grievance platforms intervene at Parameter #12 (filling individual potholes after complaints are filed). CURE intervenes at Leverage Point #6 (information flows — closing the verification loop) and Leverage Point #4 (system self-organization — multi-agency coordinated interventions and predictive desilting schedules).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="app-footer">
+            <p><strong>CURE v6.1 — Closed-Loop Civic Response & Systems Intelligence</strong> • Problem Solving in Engineering (PSE) Capstone Project</p>
+            <p style="margin-top: 4px; font-size: 10px;">Your City. Your Voice. Better Governance. • Designed for GHMC Municipal Resilience</p>
+        </footer>
+
+    </div>
+
+    <!-- SCRIPT -->
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CURE Presentation Slides - Anurag University</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Palette from User Image */
+            --navy: #2F4156;
+            --teal: #567C8D;
+            --sky-blue: #C8D9E6;
+            --beige: #F5EFEB;
+            --white: #FFFFFF;
+
+            --bg-app: var(--beige);
+            --bg-panel: var(--white);
+            --bg-card: rgba(255, 255, 255, 0.85);
+            
+            --neon-cyan: var(--teal);
+            --neon-green: #2e7d32;
+            --neon-rose: #c62828;
+            --neon-amber: #ef6c00;
+            --neon-purple: #6a1b9a;
+            
+            --text-main: var(--navy);
+            --text-muted: var(--teal);
+            --text-dark: #64748b;
+            
+            --font-sans: 'Outfit', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+        }
+
+        body {
+            background-color: var(--bg-app);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Slide Container */
+        .presentation-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 40px;
+        }
+
+        .slide {
+            width: 100%;
+            max-width: 960px;
+            height: 540px;
+            background: var(--bg-panel);
+            border: 1px solid rgba(47, 65, 86, 0.15);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(47, 65, 86, 0.08);
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            animation: slideFadeIn 0.5s ease-out forwards;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes slideFadeIn {
+            from { opacity: 0; transform: translateY(10px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Slide Headers & footers */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid rgba(47, 65, 86, 0.15);
+            padding-bottom: 15px;
+        }
+
+        .slide-header h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--navy);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .slide-header h2 i {
+            color: var(--teal);
+        }
+
+        .slide-header .slide-number {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--text-dark);
+            background: var(--beige);
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(47, 65, 86, 0.1);
+        }
+
+        .slide-body {
+            flex-grow: 1;
+            padding: 25px 0;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .slide-content-left {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .slide-content-right {
+            flex: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Lists and bullets */
+        .bullet-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .bullet-list li {
+            font-size: 16px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+        }
+
+        .bullet-list li i {
+            color: var(--teal);
+            margin-top: 4px;
+            font-size: 14px;
+        }
+
+        .bullet-list li strong {
+            color: var(--navy);
+        }
+
+        /* Large graphic panels */
+        .graphic-panel {
+            width: 100%;
+            background: var(--beige);
+            border: 1px solid rgba(47, 65, 86, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .graphic-panel i {
+            font-size: 48px;
+            color: var(--neon-purple);
+            margin-bottom: 12px;
+        }
+
+        .graphic-panel h4 {
+            font-size: 16px;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+
+        .graphic-panel p {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .graphic-panel.green i { color: var(--neon-green); }
+        .graphic-panel.cyan i { color: var(--neon-cyan); }
+        .graphic-panel.rose i { color: var(--neon-rose); }
+        .graphic-panel.amber i { color: var(--neon-amber); }
+
+        /* Slide 1 Specifics */
+        .title-slide {
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 20px;
+            background: var(--navy) !important;
+        }
+
+        .title-slide .logo {
+            font-size: 72px;
+            color: var(--sky-blue);
+            margin-bottom: 10px;
+            animation: pulse-ring 2s infinite;
+        }
+
+        .title-slide h1 {
+            font-size: 52px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--white);
+        }
+
+        .title-slide .subtitle {
+            font-size: 18px;
+            color: var(--sky-blue);
+            margin-bottom: 10px;
+        }
+
+        .title-slide .uni-tag {
+            font-size: 12px;
+            color: var(--sky-blue);
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* Speaking notes panel */
+        .speaking-notes-panel {
+            background: var(--navy);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            height: 120px;
+            overflow-y: auto;
+        }
+
+        .speaking-notes-panel i {
+            color: var(--sky-blue);
+            font-size: 18px;
+            margin-top: 2px;
+        }
+
+        .speaking-notes-panel p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.5;
+        }
+
+        .speaking-notes-panel p strong {
+            color: var(--white);
+        }
+
+        /* Bottom navigation controls */
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 40px;
+            background: var(--white);
+            border-top: 1px solid rgba(47, 65, 86, 0.15);
+        }
+
+        .nav-btn {
+            background: var(--white);
+            border: 1px solid rgba(47, 65, 86, 0.15);
+            color: var(--navy);
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+            background: var(--beige);
+        }
+
+        .slide-counter {
+            font-size: 12px;
+            color: var(--text-dark);
+            font-family: var(--font-mono);
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.97); filter: drop-shadow(0 0 10px rgba(200, 217, 230, 0.3)); }
+            50% { transform: scale(1.03); filter: drop-shadow(0 0 20px rgba(200, 217, 230, 0.5)); }
+            100% { transform: scale(0.97); filter: drop-shadow(0 0 10px rgba(200, 217, 230, 0.3)); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRESENTATION LAYOUT -->
+    <div class="presentation-container">
+
+        <!-- SLIDE 1 -->
+        <div class="slide title-slide active" data-slide="1">
+            <div class="logo"><i class="fa-solid fa-shield-halved"></i></div>
+            <h1>CURE</h1>
+            <p class="subtitle">City Unified Response & Evolution Platform</p>
+            <p class="uni-tag">Anurag University • Department of Artificial Intelligence</p>
+        </div>
+
+        <!-- SLIDE 2 -->
+        <div class="slide" data-slide="2">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-circle-exclamation"></i> The Core Problem</h2>
+                <span class="slide-number">Slide 02 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Isolated Grievance Redressal:</strong> Modern portals operate in silos. If a water pipe burst destroys a road, the Water Dept and Road Dept repair independently, causing repeat digging.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Reactive Operations Trap:</strong> Crews are deployed only *after* citizen reports are logged, ignoring preventive maintenance potentials.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Siloed Systems:</strong> No automated interdependency mapping between complaints, weather metrics, and municipal budgets.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel rose">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <h4>The Reactive Cycle</h4>
+                        <p>Citizen Files Ticket ➔ Officer Repairs ➔ Case Closed ➔ Failure Repeats. No systemic root-cause learning is captured.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3 -->
+        <div class="slide" data-slide="3">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-circle-nodes"></i> Systems Thinking Concept</h2>
+                <span class="slide-number">Slide 03 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Donella Meadows Framework:</strong> CURE models cities as integrated feedback networks of budgets, climate, and infrastructure, not flat tables.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Causal Dependencies:</strong> Understanding relationships: *High Rainfall ➔ Clogged Sewerage ➔ Flooding ➔ Road Wear ➔ Traffic Gridlock*.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Proactive Interventions:</strong> Breaking failure loops by shifting budgets from reactive repairs to predictive maintenance schedules.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel purple">
+                        <i class="fa-solid fa-arrows-spin"></i>
+                        <h4>Feedback Loop Dynamics</h4>
+                        <p>Mapping reinforcing feedback loops ($R$) that degrade infrastructure and balancing loops ($B$) that stabilize urban resilience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4 -->
+        <div class="slide" data-slide="4">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-network-wired"></i> Proposed Architecture</h2>
+                <span class="slide-number">Slide 04 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Pillar 1: Citizen Intelligence Gateway:</strong> Natural speech voice filing, computer vision scanner, and ticket tracking.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Pillar 2: Governance Intelligence Engine (GIE):</strong> Central GIE AI brain coordinating classification, duplicates, and graphs.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Pillar 3: Govt Decision Support System (GDSS):</strong> Living Digital Twin map, budget debate engines, and ethics checkers.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel cyan">
+                        <i class="fa-solid fa-database"></i>
+                        <h4>Layered Redressal</h4>
+                        <p>Unifying citizen gateways with structural digital twins to generate joint multi-agency dispatches.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5 -->
+        <div class="slide" data-slide="5">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-users"></i> Pillar 1: Citizen Gateway</h2>
+                <span class="slide-number">Slide 05 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Multi-lingual Voice AI:</strong> Citizens record inputs naturally in English, Telugu, or Hindi—translating speech to text instantly.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Computer Vision Auditing:</strong> Users upload photos to trigger instant bounding-box object sweeps for potholes or garbage.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Smart Citizen Assistance:</strong> Discloses expected timelines and root-cause explanations to eliminate visits.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel green">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+                        <h4>Office Visit Eliminator</h4>
+                        <p>Citizen tracking screens list officer contacts and explain weather-related delay reasons transparently.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6 -->
+        <div class="slide" data-slide="6">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-brain"></i> Pillar 2: Governance Engine (GIE)</h2>
+                <span class="slide-number">Slide 06 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Multi-agent AI Framework:</strong> Specialist agents collaborating to optimize city parameters.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>NLP Keyword Extraction:</strong> Sweeps citizen inputs to map categories, locations, and safety weights.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Spatial Duplicate Detector:</strong> Searches complaint logs in a 100-meter radius to merge tickets automatically.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel purple">
+                        <i class="fa-solid fa-microchip"></i>
+                        <h4>Cognitive Pipeline</h4>
+                        <p>Submission ➔ NLP Parsing ➔ Duplicate Search ➔ Priority Weights ➔ Joint Routing ➔ Digital Twin Sync.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7 -->
+        <div class="slide" data-slide="7">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-cube"></i> Pillar 3: Ward 45 Digital Twin</h2>
+                <span class="slide-number">Slide 07 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Real-time Telemetry:</strong> Modeling actual census stats and weather metrics for a single ward (Jubilee Hills).</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>DNA Health Indexes:</strong> Tracking parameters: Road Network Health, Drainage Flow, and Waste Collections.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Interactive Mapping:</strong> Responsive vector map updating color states based on rainfall and maintenance intervals.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel cyan">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <h4>Ward 45 Core Twin</h4>
+                        <p>Rainfall and maintenance sliders dynamically trigger mathematical recalculations of ward resilience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8 -->
+        <div class="slide" data-slide="8">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-comments"></i> Multi-Agent Decision Engine</h2>
+                <span class="slide-number">Slide 08 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Collaborative AI:</strong> Specialist agents represent Roads, Water, Budget, Safety, and Citizen interests.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Negotiated Dispatches:</strong> Debate conflicting targets (speed of repair vs budget limits) to reach a joint resolution.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Interactive Logs:</strong> Displays dialog transcript text showing budget shift recommendations in real-time.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel purple">
+                        <i class="fa-solid fa-people-group"></i>
+                        <h4>Cooperative Governance</h4>
+                        <p>AI agents debate budget reallocations dynamically based on rainfall telemetry changes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9 -->
+        <div class="slide" data-slide="9">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-diagram-project"></i> Interdependency Graph</h2>
+                <span class="slide-number">Slide 09 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Causal Knowledge Mapping:</strong> Visualizing municipal failure paths on an HTML5 canvas element.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Dynamic Glow Paths:</strong> Selecting a node (e.g. *Rainfall*) highlights dependencies across other nodes.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Failure Cascades:</strong> Explains how drainage clog degradation affects road durability and emergency dispatches.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel amber">
+                        <i class="fa-solid fa-circle-nodes"></i>
+                        <h4>Temporal Graph Databases</h4>
+                        <p>Replaces flat database rows with relational nodes and edges, modeling how failures propagate.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10 -->
+        <div class="slide" data-slide="10">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-brain"></i> Explainable AI (XAI)</h2>
+                <span class="slide-number">Slide 10 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Eliminating Black Box AI:</strong> CURE provides detailed explanations for priority routing decisions.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Confidence breakdowns:</strong> Tooltip display showing image resolution, spatial match, and historical correlations.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Decision Log Transparency:</strong> Assures engineers of target deadlines by showing proximity weights (hospital zones).</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel green">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                        <h4>Responsible AI</h4>
+                        <p>XAI displays clear reasons (e.g., proximity to hospital) justifying critical dispatches.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11 -->
+        <div class="slide" data-slide="11">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-calendar-check"></i> Preventive Maintenance</h2>
+                <span class="slide-number">Slide 11 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Monsoon Warning Actions:</strong> Automatically registers sewer desilting when rainfall exceeds thresholds.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Proactive inspections:</strong> GIE generates inspection sweeps before grid failures trigger complaints.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Pre-emptive Scheduling:</strong> Replaces reactive fixing with calendar-scheduled desilting dispatches.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel cyan">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <h4>Self-Healing Schedules</h4>
+                        <p>CURE generates automated, scheduled checks of infrastructure nodes before silting causes flood overflow.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12 -->
+        <div class="slide" data-slide="12">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-sliders"></i> Policy Simulator Sandbox</h2>
+                <span class="slide-number">Slide 12 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Decision sandboxing:</strong> Administrators test schedule configurations before deploying.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Outcome Projection:</strong> Shows the cost-benefit analysis of reducing maintenance intervals from 90 to 45 days.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Resilience Forecasts:</strong> Instantly displays the projected drop in complaints (-24%) and changes in budget limits.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel amber">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <h4>Outcome Projections</h4>
+                        <p>Simulating how change variables affect public satisfaction and maintenance expenditure in real-time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13 -->
+        <div class="slide" data-slide="13">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-rectangle-list"></i> Self-Healing Joint Work Orders</h2>
+                <span class="slide-number">Slide 13 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Unified Tickets (JWOs):</strong> Breaking department silos. Single ticket coordinates multiple crews.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Simultaneous Dispatch:</strong> Dispatches Roads, Water Board, and Traffic Police crews together.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Resource Optimization:</strong> Prevents repaired asphalt from being dug up again, saving public funds.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel green">
+                        <i class="fa-solid fa-gears"></i>
+                        <h4>Ecosystem JWO Dispatch</h4>
+                        <p>Water excavation + Traffic police redirection + Asphalt repaving scheduled as a single unified work dispatch.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 14 -->
+        <div class="slide" data-slide="14">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-gavel"></i> Ethics & Policy Auditing</h2>
+                <span class="slide-number">Slide 14 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Ethics Engine constraints:</strong> Checks budget distribution equity to ensure poor areas aren't neglected.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Digital Constitution Check:</strong> Validates work recommendations against municipal laws.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Spatial Justice Indicators:</strong> Ensures high-priority safety areas are dispatched first based on telemetry data.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel rose">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                        <h4>Governance Guardrails</h4>
+                        <p>Auditing dispatches for spatial fairness and checking compliance with municipal regulations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 15 -->
+        <div class="slide" data-slide="15">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-arrows-spin"></i> Trust & Continuous Learning</h2>
+                <span class="slide-number">Slide 15 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Evolving Coefficients:</strong> Resolved ratings update GIE scheduling parameters in real-time.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Sentiment Auto-Reopen:</strong> Negative reviews (e.g., *'work not completed'*) automatically reopen tickets.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Zonal Escalation:</strong> Reopened tasks escalate immediately to critical priority for Zonal Commissioner attention.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel green">
+                        <i class="fa-solid fa-database"></i>
+                        <h4>Decision Memory Logs</h4>
+                        <p>Adaptive updates: AI reduces asphalt durability weighting when repeated repairs at water logging nodes fail.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 16 -->
+        <div class="slide" data-slide="16">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-file-code"></i> Prototype Implementation</h2>
+                <span class="slide-number">Slide 16 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Aesthetic Standards:</strong> Apple + Tesla style dark UI layout with glowing glassmorphism gradients.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Offline Single Page App:</strong> Built in ES6 JS, CSS3, and HTML5 for fast, serverless offline execution.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Canvas API renderers:</strong> Dynamic vector animations, scanner beams, and graphic relationships.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel cyan">
+                        <i class="fa-solid fa-laptop-code"></i>
+                        <h4>Offline Independence</h4>
+                        <p>Zero dependencies, CORS errors, or server installs. The prototype runs instantly by double-clicking index.html.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 17 -->
+        <div class="slide" data-slide="17">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-wallet"></i> Governance Impact & Cost Savings</h2>
+                <span class="slide-number">Slide 17 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Annual Savings:</strong> Projected ₹2.4 Crores/Year saved in Ward 45.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Office Visit Drops:</strong> Reductions in manual follow-up visits by 61%.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Duplicate Merging:</strong> 44% drop in active duplicate tickets through spatial matching.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel green">
+                        <i class="fa-solid fa-money-bill-trend-up"></i>
+                        <h4>₹2.4 Cr Savings</h4>
+                        <p>Budget optimizations gained by shifting from reactive repair dispatches to integrated joint scheduling.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 18 -->
+        <div class="slide" data-slide="18">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-chart-bar"></i> Municipal KPIs Scoreboard</h2>
+                <span class="slide-number">Slide 18 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Average Resolution Time:</strong> Down from 7.8 days (reactive) to 2.8 days (CURE).</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Public Trust Index:</strong> Citizen satisfaction levels optimized to 91%.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Urban Resilience:</strong> Digital twin index averaging 82% across infrastructure configurations.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel cyan">
+                        <i class="fa-solid fa-trophy"></i>
+                        <h4>Resilience Targets</h4>
+                        <p>Continuous monitoring of ward indicators assures optimal response latencies and high department trust scores.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 19 -->
+        <div class="slide" data-slide="19">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-expand"></i> Future Scope & Extensibility</h2>
+                <span class="slide-number">Slide 19 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>City-Scale Scaling:</strong> Expanding coordinates logic to encompass all 150 municipal wards.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>IoT Telemetry:</strong> Direct integrations with street water flow sensor nodes and moisture readers.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Smarter Grids:</strong> Outage mapping and AQI sensor data updates synchronized inside the decision graph.</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel purple">
+                        <i class="fa-solid fa-network-wired"></i>
+                        <h4>Smart City OS</h4>
+                        <p>Expanding the GIE multi-agent framework to model electricity, public transport, and emergency medical services.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 20 -->
+        <div class="slide" data-slide="20">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-flag"></i> Conclusion</h2>
+                <span class="slide-number">Slide 20 / 20</span>
+            </div>
+            <div class="slide-body">
+                <div class="slide-content-left">
+                    <ul class="bullet-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Proactive Transition:</strong> Shifting city management from ticket inboxes to learning governance systems.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Verified Benefits:</strong> Cost-optimal, equitably audited, and transparent to the citizen.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Slogan:</strong> *"Smarter Decisions. Stronger Cities."*</li>
+                    </ul>
+                </div>
+                <div class="slide-content-right">
+                    <div class="graphic-panel green">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <h4>Project Completed</h4>
+                        <p>CURE Platform: A Proof-of-Concept Smart City Decision Support System built for Anurag University.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SPEAKING NOTES PANEL -->
+    <div class="speaking-notes-panel">
+        <i class="fa-solid fa-comment-dots"></i>
+        <p id="speaking-notes-text">Loading speaking notes...</p>
+    </div>
+
+    <!-- CONTROLS BAR -->
+    <div class="controls-bar">
+        <button class="nav-btn" id="btn-prev-slide"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+        <span style="font-size: 9px; color: var(--text-dark); font-style: italic; text-align: center; max-width: 60%;">* Decision Support Prototype: All statistics, budgets, and KPIs are simulated parameters for systems engineering analysis and require local validation.</span>
+        <span class="slide-counter" id="slide-counter-lbl">Slide 1 of 20</span>
+        <button class="nav-btn" id="btn-next-slide">Next <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('btn-prev-slide');
+        const nextBtn = document.getElementById('btn-next-slide');
+        const counterLbl = document.getElementById('slide-counter-lbl');
+        const notesTxt = document.getElementById('speaking-notes-text');
+        
+        let currentSlideIndex = 1;
+
+        // Slide Speaking Notes Database
+        const speakingNotes = {
+            1: "<strong>Respected evaluators,</strong> welcome to our presentation. Today we present CURE: City Unified Response & Evolution Platform. Developed as a capstone project for Problem Solving in Engineering (PSE), CURE is a proof-of-concept AI operating system that transitions city management from reactive complaint redressal to data-driven proactive systems planning.",
+            2: "<strong>The Core Problem:</strong> Existing portals like MyGHMC or CPGRAMS operate in silos. If a water pipe burst destroys a road, both departments operate independently. This reactive trap treats issues as isolated events, leading to repeated road digging, resource waste, and duplicate citizen complaints.",
+            3: "<strong>Systems Thinking:</strong> Guided by Donella Meadows' principles, CURE models the city as a living ecosystem where citizen feedback, department workflows, weather metrics, and municipal budgets are interconnected feedback loops. We focus on fixing the system rather than just reactive patching.",
+            4: "<strong>Proposed Architecture:</strong> We structured CURE into three distinct pillars: The Citizen Gateway Layer on the left, the GIE core AI brain in the center, and the GDSS operational interface on the right. This bridges citizen grievance filing directly with digital twins.",
+            5: "<strong>Citizen Gateway:</strong> Citizens can speak naturally in English, Telugu, or Hindi, or upload a photo to scan for potholes or garbage overflows. Timeline trackers disclose expected dates and explain weather-related delay reasons, eliminating unnecessary municipal office visits.",
+            6: "<strong>GIE Engine:</strong> The GIE is the brain of CURE. It coordinates multiple cooperative AI agents—from a Disaster Predictor to a Resource Optimizer—to classify category keywords, identify coordinates duplicate matches, and map joint dispatches.",
+            7: "<strong>Digital Twin:</strong> Focuses on Ward 45 (Jubilee Hills) as a high-fidelity prototype. Sliders allow administrators to change rainfall and maintenance frequency to watch the road, drainage, and streetlight color states adapt in real-time.",
+            8: "<strong>Multi-Agent debate:</strong> Specialist AI agents representing Roads, Water, Budget, and Safety negotiate conflicting limits (e.g. wet moisture vs hospital safety) to generate joint multi-department tasks, demonstrating cooperative AI in action.",
+            9: "<strong>Knowledge Graph:</strong> A canvas-rendered diagram mapping failure cascades. Respected evaluators, clicking a node shows how one failure propagates—for instance, how Rainfall clogs Drains, which weakens Road Health, causes Potholes, and delays Hospital ambulances.",
+            10: "<strong>Explainable AI:</strong> To eliminate black-box AI output, CURE explains *why* the AI assigned a priority level. Hovering over the confidence tag breaks down image resolution, spatial matches, and historical failure weights.",
+            11: "<strong>Preventive Maintenance:</strong> Instead of waiting for complaints, CURE proactively generates drain desilting schedules when monsoon rainfall forecasts rise, preventing drainage overflows before they trigger complaints.",
+            12: "<strong>Policy Simulator:</strong> A sandbox where administrators can test rules. Changing desilting cycles instantly projects the budget increase vs the projected drops in citizen complaints and traffic delay index values.",
+            13: "<strong>Joint Work Orders:</strong> Coordinates multi-agency dispatches (excavation, paving, and traffic diversions) as a single JWO ticket, optimizing crew schedules and preventing roads from being dug up twice.",
+            14: "<strong>Ethics & Constitutional Auditing:</strong> The Ethics Engine checks budget allocation equity to ensure poor areas aren't neglected, and the Digital Constitution checks municipal law compliance before dispatch approvals.",
+            15: "<strong>Continuous Learning Loop:</strong> Closed-loop feedback maps resolved repairs. If a repair fails again quickly, the AI decreases durability weighting parameters, recommending concrete paving instead of asphalt next time.",
+            16: "<strong>Implementation details:</strong> Built as a single page application using HTML, CSS, and JS. This ensures offline speed, zero database CORS issues, and smooth presentation controls.",
+            17: "<strong>Governance Impact:</strong> Even as a prototype, CURE simulates real-world impact—projecting an annual cost savings of ₹2.4 Crores in Ward 45 by eliminating overlapping work, duplicate routing, and manual audits.",
+            18: "<strong>Municipal KPIs:</strong> CURE displays municipal telemetry scores including average resolution latencies (down to 2.8 days), citizen satisfaction indices, and department trust parameters.",
+            19: "<strong>Future Scope:</strong> CURE is designed as a city-scale operating system. In the future, we can scale this coordinates model to all 150 wards, integrating physical pipe flow sensors and electricity grids.",
+            20: "<strong>Conclusion:</strong> In conclusion, CURE transforms grievance redressal from a ticket logging box to a proactive, learning governance brain. Respected evaluators, cities don't become smarter by collecting complaints, but by understanding why they happen. Thank you, we are open for questions."
+        };
+
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            document.querySelector(`.slide[data-slide="${index}"]`).classList.add('active');
+            
+            counterLbl.textContent = `Slide ${index} of 20`;
+            notesTxt.innerHTML = speakingNotes[index];
+            
+            currentSlideIndex = index;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            let prevIndex = currentSlideIndex - 1;
+            if (prevIndex < 1) prevIndex = 20;
+            showSlide(prevIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            let nextIndex = currentSlideIndex + 1;
+            if (nextIndex > 20) nextIndex = 1;
+            showSlide(nextIndex);
+        });
+
+        // Keyboard Controls
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextBtn.click();
+            } else if (e.key === 'ArrowLeft') {
+                prevBtn.click();
+            }
+        });
+
+        // Initial Run
+        showSlide(1);
+    </script>
+</body>
+</html>
